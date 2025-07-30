@@ -34,9 +34,20 @@ public class Flip implements ModInitializer {
 
 		ItemStack item = plr.getInventory().getSelectedStack();
 		if (item.isEmpty()) {
-			commandContext.getSource().sendError(Text.literal("You must be holding an item to show to the server."));
+			commandContext.getSource().sendError(Text.literal("You must be holding an item to display to the server."));
 			return 1;
 		}
+
+
+		MutableText res = plr.getName().copy()
+				.append(" is holding " + item.getCount() + "x ")
+				.append(item.toHoverableText());
+
+		commandContext.getSource().getServer().getPlayerManager().getPlayerList().forEach(
+				(player) -> {
+					player.sendMessage(res);
+				}
+		);
 
 		return 1;
 	}
@@ -89,6 +100,7 @@ public class Flip implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register(
 			(dispatcher, registryAccess, environment) -> {
 				dispatcher.register(CommandManager.literal("flip").executes(this::coinFlip));
+				dispatcher.register(CommandManager.literal("display").executes(this::show));
 			});
 
 		LOGGER.info("flip initialized!");

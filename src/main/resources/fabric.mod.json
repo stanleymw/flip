@@ -3,7 +3,7 @@
 	"id": "flip",
 	"version": "${version}",
 	"name": "flip",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Coin flip and item display functionality for minecraft.",
 	"authors": [
 		"Me!"
 	],
